@@ -12,7 +12,7 @@ react, ts, recoil, styled-components
 ## ℹ️설명
 <img style="width: 400px" src="https://github.com/hyunmin200/TDL_200/assets/102218665/c826f871-63ed-4bdf-a795-0acd2bebaa99" />  
 
-투두 리스트는 하나의 페이지로 이루어져 있습니다.
+투두 리스트는 하나의 페이지로 이루어져 있습니다.  
 Input구역에 원하는 텍스트를 입력하여 List에 등록할 수 있습니다.
 
 ### 카테고리 기능
