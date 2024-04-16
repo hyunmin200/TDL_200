@@ -1,6 +1,17 @@
 import styled, { createGlobalStyle } from "styled-components";
 import ToDoList from "./components/ToDoList";
 
+function App() {
+	return (
+		<>
+			<GlobalStyle />
+			<ToDoList />
+		</>
+	);
+}
+
+export default App;
+
 const GlobalStyle = createGlobalStyle`
 	/* http://meyerweb.com/eric/tools/css/reset/
    v5.0.1 | 20191019
@@ -74,14 +85,3 @@ a {
   color: inherit;
 }
 `;
-
-function App() {
-	return (
-		<>
-			<GlobalStyle />
-			<ToDoList />
-		</>
-	);
-}
-
-export default App;

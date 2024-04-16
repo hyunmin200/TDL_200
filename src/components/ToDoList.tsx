@@ -5,6 +5,37 @@ import { Categories, IToDo, categoryState, toDoSelector, toDoState } from "../at
 import { styled } from "styled-components";
 import React from "react";
 
+function ToDoList() {
+	const toDos = useRecoilValue(toDoSelector);
+	const [category, setCategory] = useRecoilState(categoryState);
+	const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
+		setCategory(event.currentTarget.value as Categories);
+	};
+	return (
+		<ToDoSection>
+			<Title>투두 리스트!</Title>
+			<hr></hr>
+			<Main>
+				<ToDoSelect value={category} onInput={onInput}>
+					<option value={Categories.TO_DO}>ToDo</option>
+					<option value={Categories.DOING}>Doing</option>
+					<option value={Categories.DONE}>Done</option>
+				</ToDoSelect>
+				<CreateToDo />
+				<ULBG>
+					<ToDoUL>
+						{toDos?.map((toDo) => (
+							<ToDo key={toDo.id} {...toDo} />
+						))}
+					</ToDoUL>
+				</ULBG>
+			</Main>
+		</ToDoSection>
+	);
+}
+
+export default ToDoList;
+
 const ToDoUL = styled.ul`
 	list-style: square;
 	margin: 5px 20px;
@@ -53,34 +84,3 @@ const ToDoSelect = styled.select`
 		padding: 3px 0;
 	}
 `;
-
-function ToDoList() {
-	const toDos = useRecoilValue(toDoSelector);
-	const [category, setCategory] = useRecoilState(categoryState);
-	const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
-		setCategory(event.currentTarget.value as Categories);
-	};
-	return (
-		<ToDoSection>
-			<Title>투두 리스트!</Title>
-			<hr></hr>
-			<Main>
-				<ToDoSelect value={category} onInput={onInput}>
-					<option value={Categories.TO_DO}>ToDo</option>
-					<option value={Categories.DOING}>Doing</option>
-					<option value={Categories.DONE}>Done</option>
-				</ToDoSelect>
-				<CreateToDo />
-				<ULBG>
-					<ToDoUL>
-						{toDos?.map((toDo) => (
-							<ToDo key={toDo.id} {...toDo} />
-						))}
-					</ToDoUL>
-				</ULBG>
-			</Main>
-		</ToDoSection>
-	);
-}
-
-export default ToDoList;

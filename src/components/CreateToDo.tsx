@@ -4,6 +4,27 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { categoryState, toDoState } from "../atoms";
 import { styled } from "styled-components";
 
+function CreateToDo() {
+	const setToDos = useSetRecoilState(toDoState);
+	const category = useRecoilValue(categoryState);
+	const { register, handleSubmit, setValue } = useForm<IForm>();
+	const onValid = ({ toDo }: IForm) => {
+		setToDos((oldToDos) => [{ text: toDo, id: Date.now(), category: category }, ...oldToDos]);
+		setValue("toDo", "");
+	};
+	return (
+		<ToDoForm onSubmit={handleSubmit(onValid)}>
+			<ToDoInput
+				{...register("toDo", { required: { value: true, message: "toDo를 입력해주세요" } })}
+				placeholder="to do를 작성하세요"
+			/>
+			<ToDoBtn>추가</ToDoBtn>
+		</ToDoForm>
+	);
+}
+
+export default CreateToDo;
+
 const ToDoInput = styled.input`
 	width: 85%;
 	height: 35px;
@@ -40,24 +61,3 @@ const ToDoForm = styled.form`
 interface IForm {
 	toDo: string;
 }
-
-function CreateToDo() {
-	const setToDos = useSetRecoilState(toDoState);
-	const category = useRecoilValue(categoryState);
-	const { register, handleSubmit, setValue } = useForm<IForm>();
-	const onValid = ({ toDo }: IForm) => {
-		setToDos((oldToDos) => [{ text: toDo, id: Date.now(), category: category }, ...oldToDos]);
-		setValue("toDo", "");
-	};
-	return (
-		<ToDoForm onSubmit={handleSubmit(onValid)}>
-			<ToDoInput
-				{...register("toDo", { required: { value: true, message: "toDo를 입력해주세요" } })}
-				placeholder="to do를 작성하세요"
-			/>
-			<ToDoBtn>추가</ToDoBtn>
-		</ToDoForm>
-	);
-}
-
-export default CreateToDo;
